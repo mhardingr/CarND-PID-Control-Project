@@ -36,13 +36,19 @@ int main(int argc, char* argv[]) {
   PID pid;
   // For testing, read in Kp, Ki, and Kd from commandline
   double kp, ki, kd;
-  if (argc < 4) {
+  if (argc == 3) {
+      kp = std::stod(argv[1]);
+      ki = std::stod(argv[2]);
+      kd = std::stod(argv[3]);
+  } else if (argc == 1) {
+      std::cout << "Using baked-in values." << std::endl;
+      kp = 1.22e-1;
+      ki = 1.5e-4;
+      kd = 2.1;
+  } else {
       std::cout << "Need 3 args: kp, ki, kd." << std::endl;
       return -1;
   }
-  kp = std::stod(argv[1]);
-  ki = std::stod(argv[2]);
-  kd = std::stod(argv[3]);
 
   pid.Init(kp, ki, kd);
 
